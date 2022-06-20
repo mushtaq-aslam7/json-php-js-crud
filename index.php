@@ -15,11 +15,14 @@ $jsonfile = json_decode($getfile);
       overflow-x: hidden;
       /* Add the ability to scroll */
     }
-    
+
+    .topMargin {
+      margin: 20px;
+    }
   </style>
   <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title> PHP-JavaScript CURD - JSON </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -28,34 +31,23 @@ $jsonfile = json_decode($getfile);
 
 <body>
   <div class="container">
-    <div class="row">
-      <div class="col-lg-6">
-    <h3>PHP-javaScript CRUD using JSON &nbsp; <a class="btn btn-primary" href="add.php">Add</a></h3>
-      </div>
-      <div class="col-lg-6">
-      <!-- <form action="" method="get"><br/>
-      <div class="row">
-        <div class="col-sm-6">              
-         <input class="form-control" id="search" type="text" placeholder="Search"/>
+    <div class="container">
+      <div class="topMargin">
+        <div class="row">
+          <div class="col-lg-8">
+            <h3>PHP-javaScript CRUD using JSON &nbsp; <a class="btn btn-primary" href="add.php">Add</a></h3>
+          </div>
+          <div class="col-lg-4">
+              <input type="text" class="form-control" placeholder="Search Data..." name="search" id="search">
+              </input>
+              <ul class="list-group" id="result">
+              </ul>
+              <br>
+          </div>
         </div>
-        <div class="col-sm-6">
-         <input type="submit" class="button btn btn-secondary" value="Search" id="search">
-        </div>
       </div>
-   </form> -->
-   
-            <div class="input-group">
-                
+    </div>
 
-                <input type="text" class="form-control" placeholder="Search User Data..." name="search" id="search">
-            </div>
-
-            <ul class="list-group" id="result">
-            </ul>
-
-            <br>
-    
-      </div></div>
 
     <table class="table">
       <br>
@@ -219,13 +211,13 @@ $jsonfile = json_decode($getfile);
 
               <input type="hidden" name="id" id="delid">
               <p>Are you sure to delete the record?</p>
-              
-            
+
+
           </div>
           <div class="modal-footer">
-          <button type="submit" name="delete" class="btn btn-danger">YES</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
-            </form>           
+            <button type="submit" name="delete" class="btn btn-danger">YES</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </form>
           </div>
         </div>
       </div>
@@ -479,7 +471,7 @@ $jsonfile = json_decode($getfile);
         </div>
       </div>
     </div>
-    <script >
+    <script>
       function onEdit(o) {
 
         console.log(o);
@@ -591,36 +583,34 @@ $jsonfile = json_decode($getfile);
         };
         var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
       }
-      
-        $(document).ready(function() {
+
+      $(document).ready(function() {
         $('#search').keyup(function(event) {
-          
-            // $.ajaxSetup({ cache: false });
-            $('#result').html('');
 
-            var searchField = $('#search').val();
-            var expression = new RegExp(searchField, "i");
+          // $.ajaxSetup({ cache: false });
+          $('#result').html('');
 
-            $.getJSON('data.json',function(data) {
-                $.each(data, function(key, value) {
-                    if ( value.szPlotIdUniqueKey.search(expression) != -1 
-                    || value.fPrice.search(expression) != -1 || value.szRow.search(expression) != -1
-                    || value.szPlot.search(expression) != -1 || value.szLot.search(expression) != -1
-                    || value.szCentroidLatitude.search(expression) != -1 || value.szCentroidLongtitude.search(expression) != -1
-                    || value.szNECornerLatitude.search(expression) != -1 || value.szNECornerLongitude.search(expression) != -1
-                    || value.szNWCornerLatitude.search(expression) != -1 || value.szNWCornerLongitude.search(expression) != -1
-                    || value.szSECornerLatitude.search(expression) != -1 || value.szSECornerLongitude.search(expression) != -1
-                    || value.szSWCornerLatitude.search(expression) != -1 || value.szSWCornerLongitude.search(expression) != -1
-                    || value.boundaryPlot.search(expression) != -1 || value.cornerPlot.search(expression) != -1
-                    || value.PriceWithTaxWithExtra.search(expression) != -1 )
-                    {
-                     $('#result').append('<li class="list-group-item link-class"> '+value.id+' | <span class="text-muted">'+value.fPrice+'</span></li>');
-                    }
+          var searchField = $('#search').val();
+          var expression = new RegExp(searchField, "i")
+
+          $.getJSON('data.json', function(data) {
+            $.each(data, function(key, value) {
+              if (value.id.toString().search(expression) != -1 || value.szPlotIdUniqueKey.search(expression) != -1 ||
+                value.fPrice.search(expression) != -1 || value.szRow.search(expression) != -1 ||
+                value.szPlot.search(expression) != -1 || value.szLot.search(expression) != -1 ||
+                value.szCentroidLatitude.search(expression) != -1 || value.szCentroidLongtitude.search(expression) != -1 ||
+                value.szNECornerLatitude.search(expression) != -1 || value.szNECornerLongitude.search(expression) != -1 ||
+                value.szNWCornerLatitude.search(expression) != -1 || value.szNWCornerLongitude.search(expression) != -1 ||
+                value.szSECornerLatitude.search(expression) != -1 || value.szSECornerLongitude.search(expression) != -1 ||
+                value.szSWCornerLatitude.search(expression) != -1 || value.szSWCornerLongitude.search(expression) != -1 ||
+                value.boundaryPlot.search(expression) != -1 || value.cornerPlot.search(expression) != -1 ||
+                value.PriceWithTaxWithExtra.search(expression) != -1) {
+                $('#result').append('<li class="list-group-item link-class"><div class="row"><div class="col-sm-10"><p>Results found against ID : ' + value.id + ' </p></div><div class="col-sm-2"><a class="btn btn-info btn-sm" onclick="onView(' + value.id + ')" data-bs-toggle="modal" data-bs-target="#view">View</a></div></div> </li>');
+              }
             });
+          });
         });
-    });
-    });
-  
+      });
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfUroDQu3kObHcbvYvCoGNbwfDPrAJ3aw&callback=myMap">
     </script>
