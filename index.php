@@ -54,7 +54,7 @@ $jsonfile = json_decode($getfile);
             <td><?php echo $var->szCentroidLatitude; ?></td>
             <td><?php echo $var->szCentroidLongtitude; ?></td>
             <td>
-              <a class="btn btn-warning" onclick="onEdit(<?php echo $var->id; ?>)" data-bs-toggle="modal" data-bs-target="#edit">Edit</a>
+              <a class="btn btn-warning" onclick="onEdit(<?php echo $var->id; ?>)" data-bs-toggle="modal" data-bs-target="#edit">Update</a>
               <a class="btn btn-danger" onclick="onDel(<?php echo $var->id; ?>)" data-bs-toggle="modal" data-bs-target="#del">Delete</a>
               <a class="btn btn-info" onclick="onView(<?php echo $var->id; ?>)" data-bs-toggle="modal" data-bs-target="#view">View</a>
             </td>
@@ -67,7 +67,7 @@ $jsonfile = json_decode($getfile);
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal view</h5>
+            <h5 class="modal-title" id="exampleModalLabel">View</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -179,19 +179,21 @@ $jsonfile = json_decode($getfile);
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal del</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form action="delete.php" method="post">
 
               <input type="hidden" name="id" id="delid">
-              <button type="submit" name="delete">delete</button>
-            </form>
+              <p>Are you sure to delete the record?</p>
+              
+            
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" name="delete" class="btn btn-danger">YES</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
+            </form>           
           </div>
         </div>
       </div>
@@ -201,7 +203,7 @@ $jsonfile = json_decode($getfile);
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal update</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Update</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
