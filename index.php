@@ -15,15 +15,47 @@ $jsonfile = json_decode($getfile);
       overflow-x: hidden;
       /* Add the ability to scroll */
     }
+    
   </style>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   <title> PHP-JavaScript CURD - JSON </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
 <body>
   <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
     <h3>PHP-javaScript CRUD using JSON &nbsp; <a class="btn btn-primary" href="add.php">Add</a></h3>
+      </div>
+      <div class="col-lg-6">
+      <!-- <form action="" method="get"><br/>
+      <div class="row">
+        <div class="col-sm-6">              
+         <input class="form-control" id="search" type="text" placeholder="Search"/>
+        </div>
+        <div class="col-sm-6">
+         <input type="submit" class="button btn btn-secondary" value="Search" id="search">
+        </div>
+      </div>
+   </form> -->
+   
+            <div class="input-group">
+                
+
+                <input type="text" class="form-control" placeholder="Search User Data..." name="search" id="search">
+            </div>
+
+            <ul class="list-group" id="result">
+            </ul>
+
+            <br>
+    
+      </div></div>
 
     <table class="table">
       <br>
@@ -447,7 +479,7 @@ $jsonfile = json_decode($getfile);
         </div>
       </div>
     </div>
-    <script>
+    <script >
       function onEdit(o) {
 
         console.log(o);
@@ -559,6 +591,36 @@ $jsonfile = json_decode($getfile);
         };
         var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
       }
+      
+        $(document).ready(function() {
+        $('#search').keyup(function(event) {
+          
+            // $.ajaxSetup({ cache: false });
+            $('#result').html('');
+
+            var searchField = $('#search').val();
+            var expression = new RegExp(searchField, "i");
+
+            $.getJSON('data.json',function(data) {
+                $.each(data, function(key, value) {
+                    if ( value.szPlotIdUniqueKey.search(expression) != -1 
+                    || value.fPrice.search(expression) != -1 || value.szRow.search(expression) != -1
+                    || value.szPlot.search(expression) != -1 || value.szLot.search(expression) != -1
+                    || value.szCentroidLatitude.search(expression) != -1 || value.szCentroidLongtitude.search(expression) != -1
+                    || value.szNECornerLatitude.search(expression) != -1 || value.szNECornerLongitude.search(expression) != -1
+                    || value.szNWCornerLatitude.search(expression) != -1 || value.szNWCornerLongitude.search(expression) != -1
+                    || value.szSECornerLatitude.search(expression) != -1 || value.szSECornerLongitude.search(expression) != -1
+                    || value.szSWCornerLatitude.search(expression) != -1 || value.szSWCornerLongitude.search(expression) != -1
+                    || value.boundaryPlot.search(expression) != -1 || value.cornerPlot.search(expression) != -1
+                    || value.PriceWithTaxWithExtra.search(expression) != -1 )
+                    {
+                     $('#result').append('<li class="list-group-item link-class"> '+value.id+' | <span class="text-muted">'+value.fPrice+'</span></li>');
+                    }
+            });
+        });
+    });
+    });
+  
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfUroDQu3kObHcbvYvCoGNbwfDPrAJ3aw&callback=myMap">
     </script>
