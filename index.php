@@ -25,7 +25,7 @@ $jsonfile = json_decode($getfile);
             <h3>PHP-javaScript CRUD using JSON &nbsp; <a class="btn btn-primary" href="add.php">Add</a></h3>
           </div>
           <div class="col-lg-4">
-              <input type="text" class="form-control" placeholder="Search Data..." name="search" id="myInput" onkeyup="myFunction()">
+              <input type="text" class="form-control" placeholder="Search Data..." name="search" id="myInput" onkeyup="searchTable()">
               </input>
           </div>
         </div>
@@ -39,14 +39,14 @@ $jsonfile = json_decode($getfile);
       <thead>
         <tr>
 
-          <th scope="col">id</th>
-          <th scope="col">Unique ID</th>
-          <th scope="col">Price</th>
-          <th scope="col">Row</th>
-          <th scope="col">Plot</th>
-          <th scope="col">Lot</th>
-          <th scope="col">Latitude</th>
-          <th scope="col">Longitude</th>
+          <th scope="col" onclick="sortTable(0)">id</th>
+          <th scope="col" onclick="sortTable(1)" >Unique ID</th>
+          <th scope="col" onclick="sortTable(2)">Price</th>
+          <th scope="col" onclick="sortTable(3)">Row</th>
+          <th scope="col" onclick="sortTable(4)">Plot</th>
+          <th scope="col" onclick="sortTable(5)">Lot</th>
+          <th scope="col" onclick="sortTable(6)">Latitude</th>
+          <th scope="col" onclick="sortTable(7)">Longitude</th>
           <th></th>
         </tr>
       </thead>
