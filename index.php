@@ -5,21 +5,8 @@ $jsonfile = json_decode($getfile);
 <html>
 
 <head>
-  <style>
-    .scroll {
-      background-color: #ffff;
-      width: 100%;
-      height: 650px;
-      border: 0px;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      /* Add the ability to scroll */
-    }
-
-    .topMargin {
-      margin: 20px;
-    }
-  </style>
+<link rel="stylesheet" href="style.css">
+  
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,18 +25,16 @@ $jsonfile = json_decode($getfile);
             <h3>PHP-javaScript CRUD using JSON &nbsp; <a class="btn btn-primary" href="add.php">Add</a></h3>
           </div>
           <div class="col-lg-4">
-              <input type="text" class="form-control" placeholder="Search Data..." name="search" id="search">
+              <input type="text" class="form-control" placeholder="Search Data..." name="search" id="myInput" onkeyup="myFunction()">
               </input>
-              <ul class="list-group" id="result">
-              </ul>
-              <br>
           </div>
         </div>
       </div>
     </div>
+    
 
 
-    <table class="table">
+    <table class="table" id="myTable">
       <br>
       <thead>
         <tr>
@@ -471,147 +456,8 @@ $jsonfile = json_decode($getfile);
         </div>
       </div>
     </div>
-    <script>
-      function onEdit(o) {
+    <script src="js/script.js"></script> 
 
-        console.log(o);
-        fetch('data.json', {
-            cache: "reload"
-          })
-          .then(response => {
-            return response.json();
-          })
-          .then(json => {
-            //compare id
-            plots = json;
-
-            //console.log(plots);
-            var i = plots.findIndex(p => p.id == o);
-            console.log("i", i);
-
-            document.getElementById("editID").value = plots[i]['id'];
-            document.getElementById("editUid").value = plots[i]['szPlotIdUniqueKey'];
-            document.getElementById('editP').value = plots[i]['fPrice'];
-            document.getElementById('row').value = plots[i]['szRow'];
-            document.getElementById('plot').value = plots[i]['szPlot'];
-            document.getElementById('lot').value = plots[i]['szLot'];
-            document.getElementById('lat').value = plots[i]['szCentroidLatitude'];
-            document.getElementById('long').value = plots[i]['szCentroidLongtitude'];
-            document.getElementById('northing').value = plots[i]['szCentroidNorthing'];
-            document.getElementById('easting').value = plots[i]['szCentroidEasting'];
-            document.getElementById('necLat').value = plots[i]['szNECornerLatitude'];
-            document.getElementById('necLon').value = plots[i]['szNECornerLongitude'];
-            document.getElementById('nwcLat').value = plots[i]['szNWCornerLatitude'];
-            document.getElementById('nwcLong').value = plots[i]['szNWCornerLongitude'];
-            document.getElementById('secLat').value = plots[i]['szSECornerLatitude'];
-            document.getElementById('secLong').value = plots[i]['szSECornerLongitude'];
-            document.getElementById('swcLat').value = plots[i]['szSWCornerLatitude'];
-            document.getElementById('swcLong').value = plots[i]['szSWCornerLongitude'];
-            document.getElementById('bPlot').value = plots[i]['boundaryPlot'];
-            document.getElementById('cPlot').value = plots[i]['cornerPlot'];
-            document.getElementById('pwithTax').value = plots[i]['PriceWithTaxWithExtra'];
-          })
-      }
-
-      function onDel(o) {
-
-        //fetchjson 
-        fetch('data.json', {
-            cache: "reload"
-          })
-          .then(response => {
-            return response.json();
-          })
-          .then(json => {
-            //compare id
-            plots = json;
-
-            //console.log(plots);
-            var i = plots.findIndex(p => p.id == o);
-            console.log("i", i);
-
-            document.getElementById("delid").value = plots[i]['id'];
-          })
-        //index 
-      }
-
-      function onView(o) {
-
-        console.log(o);
-        fetch('data.json', {
-            cache: "reload"
-          })
-          .then(response => {
-            return response.json();
-          })
-          .then(json => {
-            //compare id
-            plots = json;
-
-            //console.log(plots);
-            var i = plots.findIndex(p => p.id == o);
-            console.log("i", i);
-
-            document.getElementById("vID").innerHTML = plots[i]['id'];
-            document.getElementById("vUid").innerHTML = plots[i]['szPlotIdUniqueKey'];
-            document.getElementById('vPrice').innerHTML = plots[i]['fPrice'];
-            document.getElementById('vRow').innerHTML = plots[i]['szRow'];
-            document.getElementById('vPlot').innerHTML = plots[i]['szPlot'];
-            document.getElementById('vLot').innerHTML = plots[i]['szLot'];
-            document.getElementById('vLat').innerHTML = plots[i]['szCentroidLatitude'];
-            document.getElementById('vLong').innerHTML = plots[i]['szCentroidLongtitude'];
-            document.getElementById('vNorthing').innerHTML = plots[i]['szCentroidNorthing'];
-            document.getElementById('vEasting').innerHTML = plots[i]['szCentroidEasting'];
-            document.getElementById('vNecLat').innerHTML = plots[i]['szNECornerLatitude'];
-            document.getElementById('vNecLon').innerHTML = plots[i]['szNECornerLongitude'];
-            document.getElementById('vNwcLat').innerHTML = plots[i]['szNWCornerLatitude'];
-            document.getElementById('vNwcLong').innerHTML = plots[i]['szNWCornerLongitude'];
-            document.getElementById('vSecLat').innerHTML = plots[i]['szSECornerLatitude'];
-            document.getElementById('vSecLong').innerHTML = plots[i]['szSECornerLongitude'];
-            document.getElementById('vSwcLat').innerHTML = plots[i]['szSWCornerLatitude'];
-            document.getElementById('vSwcLong').innerHTML = plots[i]['szSWCornerLongitude'];
-            document.getElementById('vBPlot').innerHTML = plots[i]['boundaryPlot'];
-            document.getElementById('vCPlot').innerHTML = plots[i]['cornerPlot'];
-            document.getElementById('vPwithTax').innerHTML = plots[i]['PriceWithTaxWithExtra'];
-          })
-      }
-
-      function myMap() {
-        var mapProp = {
-          center: new google.maps.LatLng(51.508742, -0.120850),
-          zoom: 12,
-        };
-        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-      }
-
-      $(document).ready(function() {
-        $('#search').keyup(function(event) {
-
-          // $.ajaxSetup({ cache: false });
-          $('#result').html('');
-
-          var searchField = $('#search').val();
-          var expression = new RegExp(searchField, "i")
-
-          $.getJSON('data.json', function(data) {
-            $.each(data, function(key, value) {
-              if (value.id.toString().search(expression) != -1 || value.szPlotIdUniqueKey.search(expression) != -1 ||
-                value.fPrice.search(expression) != -1 || value.szRow.search(expression) != -1 ||
-                value.szPlot.search(expression) != -1 || value.szLot.search(expression) != -1 ||
-                value.szCentroidLatitude.search(expression) != -1 || value.szCentroidLongtitude.search(expression) != -1 ||
-                value.szNECornerLatitude.search(expression) != -1 || value.szNECornerLongitude.search(expression) != -1 ||
-                value.szNWCornerLatitude.search(expression) != -1 || value.szNWCornerLongitude.search(expression) != -1 ||
-                value.szSECornerLatitude.search(expression) != -1 || value.szSECornerLongitude.search(expression) != -1 ||
-                value.szSWCornerLatitude.search(expression) != -1 || value.szSWCornerLongitude.search(expression) != -1 ||
-                value.boundaryPlot.search(expression) != -1 || value.cornerPlot.search(expression) != -1 ||
-                value.PriceWithTaxWithExtra.search(expression) != -1) {
-                $('#result').append('<li class="list-group-item link-class"><div class="row"><div class="col-sm-10"><p>Results found against ID : ' + value.id + ' </p></div><div class="col-sm-2"><a class="btn btn-info btn-sm" onclick="onView(' + value.id + ')" data-bs-toggle="modal" data-bs-target="#view">View</a></div></div> </li>');
-              }
-            });
-          });
-        });
-      });
-    </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfUroDQu3kObHcbvYvCoGNbwfDPrAJ3aw&callback=myMap">
     </script>
   </div>
