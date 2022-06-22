@@ -1,12 +1,14 @@
 <?php
 $getfile = file_get_contents('data.json');
 $jsonfile = json_decode($getfile);
+
+
 ?>
 <html>
 
 <head>
-<link rel="stylesheet" href="style.css">
-  
+  <link rel="stylesheet" href="style.css">
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,17 +24,17 @@ $jsonfile = json_decode($getfile);
       <div class="topMargin">
         <div class="row">
           <div class="col-lg-8">
-            <h3>PHP-javaScript CRUD using JSON &nbsp; <a class="btn btn-primary" href="add.php">Add</a></h3>
+            <h3>PHP-javaScript CRUD using JSON &nbsp; <a class="btn btn-primary" href="add.php">Add</a>
+              <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#import">Import</a>
+            </h3>
           </div>
           <div class="col-lg-4">
-              <input type="text" class="form-control" placeholder="Search Data..." name="search" id="myInput" onkeyup="searchTable()">
-              </input>
+            <input type="text" class="form-control" placeholder="Search Data..." name="search" id="myInput" onkeyup="searchTable()">
+            </input>
           </div>
         </div>
       </div>
     </div>
-    
-
 
     <table class="table" id="myTable">
       <br>
@@ -40,7 +42,7 @@ $jsonfile = json_decode($getfile);
         <tr>
 
           <th scope="col" onclick="sortTable(0)">id</th>
-          <th scope="col" onclick="sortTable(1)" >Unique ID</th>
+          <th scope="col" onclick="sortTable(1)">Unique ID</th>
           <th scope="col" onclick="sortTable(2)">Price</th>
           <th scope="col" onclick="sortTable(3)">Row</th>
           <th scope="col" onclick="sortTable(4)">Plot</th>
@@ -456,7 +458,29 @@ $jsonfile = json_decode($getfile);
         </div>
       </div>
     </div>
-    <script src="js/script.js"></script> 
+
+    <!-- Modal import -->
+    <div class="modal fade" id="import" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="import.php" method="post" enctype="multipart/form-data">
+              <label class="form-control" for="file">Select a file:</label>
+              <input class="form-control" type="file" id="file" name="file"><br><br>
+              </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" name="submit">Import File</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfUroDQu3kObHcbvYvCoGNbwfDPrAJ3aw&callback=myMap">
     </script>
