@@ -1,8 +1,6 @@
 <?php
 $getfile = file_get_contents('data.json');
 $jsonfile = json_decode($getfile);
-
-
 ?>
 <html>
 
@@ -26,6 +24,7 @@ $jsonfile = json_decode($getfile);
           <div class="col-lg-8">
             <h3>PHP-javaScript CRUD using JSON &nbsp; <a class="btn btn-primary" href="add.php">Add</a>
               <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#import">Import</a>
+              <button class="btn btn-danger" href=""  data-bs-toggle="modal" data-bs-target="#bulkDel">Delete Bulk</button>
             </h3>
           </div>
           <div class="col-lg-4">
@@ -40,22 +39,22 @@ $jsonfile = json_decode($getfile);
       <br>
       <thead>
         <tr>
-
-          <th scope="col" onclick="sortTable(0)">id</th>
-          <th scope="col" onclick="sortTable(1)">Unique ID</th>
-          <th scope="col" onclick="sortTable(2)">Price</th>
-          <th scope="col" onclick="sortTable(3)">Row</th>
-          <th scope="col" onclick="sortTable(4)">Plot</th>
-          <th scope="col" onclick="sortTable(5)">Lot</th>
-          <th scope="col" onclick="sortTable(6)">Latitude</th>
-          <th scope="col" onclick="sortTable(7)">Longitude</th>
+          <th><input type="checkbox" onClick="toggle(this)"/></th>
+          <th scope="col" onclick="sortTable(1)">id</th>
+          <th scope="col" onclick="sortTable(2)">Unique ID</th>
+          <th scope="col" onclick="sortTable(3)">Price</th>
+          <th scope="col" onclick="sortTable(4)">Row</th>
+          <th scope="col" onclick="sortTable(5)">Plot</th>
+          <th scope="col" onclick="sortTable(6)">Lot</th>
+          <th scope="col" onclick="sortTable(7)">Latitude</th>
+          <th scope="col" onclick="sortTable(8)">Longitude</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <?php foreach ($jsonfile as $index => $var) : ?>
           <tr>
-
+            <td><input type="checkbox" name="foo[]" value="<?php echo $var->id?>"/> </td>
             <td><?php echo $var->id; ?></td>
             <td><?php echo $var->szPlotIdUniqueKey; ?></td>
             <td><?php echo $var->fPrice; ?></td>
@@ -477,6 +476,31 @@ $jsonfile = json_decode($getfile);
             <button type="submit" class="btn btn-success" name="submit">Import File</button>
           </div>
           </form>
+        </div>
+      </div>
+    </div>
+    <!-- Modal bulk delete -->
+    <div class="modal fade" id="bulkDel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="" method="post">
+
+              <input type="hidden" name="id" id="delid">
+              <p>Are you sure to delete the record?</p>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" name="delete" class="btn btn-danger" onclick="onBdel()">YES</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </form>
+          </div>
+          
         </div>
       </div>
     </div>
